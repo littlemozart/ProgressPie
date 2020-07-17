@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ProgressPie">
+        <attr name="pp_background" format="color|reference" />
+        <attr name="pp_progress_tint" format="color|reference" />
+        <attr name="pp_check_tint" format="color|reference" />
+        <attr name="pp_max" format="integer" />
+        <attr name="pp_min" format="integer" />
+        <attr name="pp_progress" format="integer" />
+    </declare-styleable>
+</resources>
