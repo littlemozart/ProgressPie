@@ -31,12 +31,12 @@ public class ProgressPie extends View implements IProgress {
     /**
      * (sqrt(5) - 1) / 2
      */
-    private static final float GOLD_RATIO = 0.618f;
+    private static final float GOLDEN_RATIO = 0.618f;
 
     /**
      * cos(45)
      */
-    private static final float SIDE_RATIO = 0.525f;
+    private static final float COS_45 = 0.525f;
 
     public ProgressPie(Context context) {
         this(context, null);
@@ -85,7 +85,7 @@ public class ProgressPie extends View implements IProgress {
         canvas.drawCircle(paddingLeft + radius, paddingTop + radius, radius, mPaint);
 
         // draw progress pie
-        float angle = 360f * mProgress / mMax;
+        float angle = 360f * mProgress / (mMax - mMin);
         mPaint.setColor(mProgressTint);
         mRectF.set(paddingLeft, paddingTop, radius * 2 + paddingLeft, radius * 2 + paddingTop);
         canvas.drawArc(mRectF, -90, angle, true, mPaint);
@@ -95,14 +95,14 @@ public class ProgressPie extends View implements IProgress {
             mPaint.setStyle(Paint.Style.STROKE);
             mPaint.setStrokeWidth(radius / 8);
             mPaint.setColor(mCheckTint);
-            float longSide = radius * 2 * GOLD_RATIO;
-            float shortSide = longSide * GOLD_RATIO;
-            float x1 = paddingLeft + shortSide * GOLD_RATIO;
+            float longSide = radius * 2 * GOLDEN_RATIO;
+            float shortSide = longSide * GOLDEN_RATIO;
+            float x1 = paddingLeft + shortSide * GOLDEN_RATIO;
             float y1 = paddingTop + radius;
-            float x2 = x1 + shortSide * SIDE_RATIO;
-            float y2 = y1 + shortSide * SIDE_RATIO;
-            float x3 = x2 + longSide * SIDE_RATIO;
-            float y3 = y2 - longSide * SIDE_RATIO;
+            float x2 = x1 + shortSide * COS_45;
+            float y2 = y1 + shortSide * COS_45;
+            float x3 = x2 + longSide * COS_45;
+            float y3 = y2 - longSide * COS_45;
             mPath.moveTo(x1, y1);
             mPath.lineTo(x2, y2);
             mPath.lineTo(x3, y3);
@@ -125,11 +125,13 @@ public class ProgressPie extends View implements IProgress {
     @Override
     public void setMax(int max) {
         mMax = max < 0 ? Math.max(0, mMin) : Math.max(mMin, max);
+        invalidate();
     }
 
     @Override
     public void setMin(int min) {
         mMin = min < 0 ? 0 : Math.min(min, mMax);
+        invalidate();
     }
 
     @Override
