@@ -12,7 +12,6 @@
         android:id="@+id/pie"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        app:pp_progress="20"
         app:pp_progress_tint="@color/colorAccent" />
 
     <com.lee.progresspie.ProgressPie
